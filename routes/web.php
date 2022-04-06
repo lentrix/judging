@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\JudgeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/contests/{contest}',[ContestController::class, 'show']);
     Route::post('/contests', [ContestController::class, 'store']);
     Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
+    Route::post("/contests/{contest}/judges", [JudgeController::class, 'store']);
 
     Route::get('/logout',[SiteController::class, 'logout']);
 });

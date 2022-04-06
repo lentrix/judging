@@ -9,7 +9,7 @@ class Judge extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'passcode'];
+    protected $fillable = ['name', 'passcode', 'contest_id','access_token'];
 
     public function contest() {
         return $this->belongsTo('App\Models\Contest');

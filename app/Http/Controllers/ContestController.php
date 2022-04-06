@@ -33,7 +33,8 @@ class ContestController extends Controller
             'title' => $request->title,
             'schedule' => $request->schedule,
             'venue' => $request->venue,
-            'event_code' => $code
+            'event_code' => $code,
+            'user_id' => auth()->user()->id
         ]);
 
         return redirect('/contests/' . $contest->id)->with('Info','A new contest has been created.');
