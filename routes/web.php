@@ -5,6 +5,7 @@ use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\JudgeController;
+use App\Http\Controllers\CriteriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/contests', [ContestController::class, 'store']);
     Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
     Route::post("/contests/{contest}/judges", [JudgeController::class, 'store']);
+    Route::post("/contests/{contest}/criterias", [CriteriaController::class, 'store']);
 
     Route::get('/logout',[SiteController::class, 'logout']);
 });
