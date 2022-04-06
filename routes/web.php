@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContestController;
+use App\Http\Controllers\ContestantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/contests',[ContestController::class, 'index']);
+Route::get('/contests/create',[ContestController::class, 'create']);
+Route::get('/contests/{contest}',[ContestController::class, 'show']);
+Route::post('/contests', [ContestController::class, 'store']);
+Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);

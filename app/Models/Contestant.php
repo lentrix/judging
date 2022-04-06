@@ -12,7 +12,7 @@ class Contestant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'number', 'remarks'
+        'name', 'number', 'remarks', 'contest_id'
     ];
 
     public function contest() {

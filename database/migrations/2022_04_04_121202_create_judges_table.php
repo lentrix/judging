@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("passcode");
             $table->bigInteger('contest_id')->unsigned();
+            $table->string('access_token');
             $table->timestamps();
 
             $table->foreign('contest_id')->references('id')->on('contests');
