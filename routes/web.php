@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ContestantController;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,16 @@ use App\Http\Controllers\ContestantController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [SiteController::class, 'loginForm'])->name('login');
+Route::post('/login', [SiteController::class, 'login']);
 
-Route::get('/contests',[ContestController::class, 'index']);
-Route::get('/contests/create',[ContestController::class, 'create']);
-Route::get('/contests/{contest}',[ContestController::class, 'show']);
-Route::post('/contests', [ContestController::class, 'store']);
-Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
+Route::group(['middleware'=>'auth'], function() {
+    Route::get('/home', [SiteController::class, 'home']);
+    Route::get('/contests',[ContestController::class, 'index']);
+    Route::get('/contests/create',[ContestController::class, 'create']);
+    Route::get('/contests/{contest}',[ContestController::class, 'show']);
+    Route::post('/contests', [ContestController::class, 'store']);
+    Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
+
+    Route::get('/logout',[SiteController::class, 'logout']);
+});

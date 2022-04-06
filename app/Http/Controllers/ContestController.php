@@ -9,9 +9,10 @@ use Illuminate\Support\Str;
 class ContestController extends Controller
 {
     public function index() {
-        $recent = Contest::limit(10)->get();
+        $contests = Contest::where('user_id', auth()->user()->id)->orderBy('created_at','DESC')->get();
+
         return view('contests.index',[
-            'recent' => $recent
+            'contests' => $contests
         ]);
     }
 
