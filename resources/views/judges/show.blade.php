@@ -8,6 +8,12 @@
     </a>
 </div>
 <h1 class="mb-0">Judge {{$judge->name}}</h1>
+<p>
+    <div class="d-inline-block">{{$judge->contest->title}}</div>
+    <div class="d-inline-block">{{$judge->contest->schedule}}</div>
+    <div class="d-inline-block">{{$judge->contest->venue}}</div>
+</p>
+
 <hr>
 <div class="row">
     <div class="col-md-3">

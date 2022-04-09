@@ -41,4 +41,16 @@ class CriteriaController extends Controller
             'criteria' => $criteria
         ]);
     }
+
+    public function update(Criteria $criteria, Request $request) {
+        $request->validate([
+            'name' => 'string|required',
+            'description' => 'string|required',
+            'weight' => 'numeric|required'
+        ]);
+
+        $criteria->update($request->only('name','description','weight'));
+
+        return redirect('/contests/' . $criteria->contest_id)->with('Info','Criteria ' . $criteria->name . ' has been updated.');
+    }
 }

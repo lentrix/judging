@@ -44,6 +44,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::put('/judges/{judge}', [JudgeController::class, 'update']);
 
     Route::get('/criterias/{criteria}', [CriteriaController::class, 'show']);
+    Route::put('/criterias/{criteria}', [CriteriaController::class, 'update']);
 
     Route::get('/logout',[SiteController::class, 'logout']);
 });
