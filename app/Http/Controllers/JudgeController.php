@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Contest;
 use App\Models\Judge;
+use App\Models\Score;
 
 class JudgeController extends Controller
 {
@@ -15,13 +16,29 @@ class JudgeController extends Controller
             'pass_code' => 'string|required',
         ]);
 
-        Judge::create([
+        $judge=Judge::create([
             'name' => $request->name,
             'passcode' => $request->pass_code,
             'contest_id' => $contest->id,
             'access_token' => Str::random(64)
         ]);
 
+        foreach($contest->contestants as $contestant) {
+            foreach($contest->criterias as $criteria) {
+                Score::create([
+                    'contestant_id' => $contestant->id,
+                    'criteria_id' => $criteria->id,
+                    'judge_id' => $judge->id
+                ]);
+            }
+        }
+
         return redirect('/contests/' . $contest->id)->with('Info','A new Judge has been created.');
+    }
+
+    public function show(Judge $judge) {
+        return view('judges.show', [
+            'judge' => $judge
+        ]);
     }
 }

@@ -10,7 +10,7 @@ class Contest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'schedule', 'venue', 'event_code', 'user_id'
+        'title', 'schedule', 'venue', 'user_id'
     ];
 
     public function judges() {
@@ -23,5 +23,12 @@ class Contest extends Model
 
     public function criterias() {
         return $this->hasMany('App\Models\Criteria');
+    }
+
+    public function nextContestantNumber() {
+        $contestant = Contestant::where('contest_id', $this->id)
+        ->orderBy('number','desc')->first();
+
+        return $contestant ? $contestant->number + 1 : 1;
     }
 }

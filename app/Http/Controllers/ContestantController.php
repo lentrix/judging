@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contest;
 use App\Models\Contestant;
+use App\Models\Score;
 
 class ContestantController extends Controller
 {
@@ -15,7 +16,7 @@ class ContestantController extends Controller
             'remarks' => 'string',
         ]);
 
-        Contestant::create([
+        $contestant=Contestant::create([
             'name' => $request->name,
             'number' => $request->number,
             'remarks' => $request->remarks,
@@ -23,6 +24,22 @@ class ContestantController extends Controller
 
         ]);
 
+        foreach($contest->judges as $judge) {
+            foreach($contest->criterias as $criteria) {
+                Score::create([
+                    'contestant_id' => $contestant->id,
+                    'criteria_id' => $criteria->id,
+                    'judge_id' => $judge->id,
+                ]);
+            }
+        }
+
         return redirect("/contests/$contest->id")->with('Info','A new contestant has been added.');
+    }
+
+    public function show(Contestant $contestant) {
+        return view('contestants.show', [
+            'contestant' => $contestant
+        ]);
     }
 }

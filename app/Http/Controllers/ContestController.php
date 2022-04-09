@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contest;
+use App\Models\Judge;
 use Illuminate\Support\Str;
 
 class ContestController extends Controller
@@ -27,13 +28,10 @@ class ContestController extends Controller
             'venue' => 'string|required',
         ]);
 
-        $code = Str::random(7);
-
         $contest = Contest::create([
             'title' => $request->title,
             'schedule' => $request->schedule,
             'venue' => $request->venue,
-            'event_code' => $code,
             'user_id' => auth()->user()->id
         ]);
 
@@ -41,8 +39,35 @@ class ContestController extends Controller
     }
 
     public function show(Contest $contest) {
+        $computation = [];
+
+
+        $allSumOfRanks=[];
+
+        foreach($contest->contestants as $contestant) {
+            $row = [];
+            $row[] = "#" . $contestant->number . " " . $contestant->name;
+            $sumOfRanks=0;
+
+            foreach($contest->judges as $judge) {
+                $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
+                $row[] = $rank = $judge->rank($contestant);
+                $sumOfRanks += $rank;
+            }
+
+            $row['sumOfRank'] = $sumOfRanks;
+
+            $allSumOfRanks[] = $sumOfRanks;
+            $computation[$contestant->id] = $row;
+        }
+
+        foreach($contest->contestants as $contestant) {
+            $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
+        }
+
         return view('contests.show', [
-            'contest' => $contest
+            'contest' => $contest,
+            'computation' => $computation
         ]);
     }
 }

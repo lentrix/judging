@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('contestant_id')->unsigned();
             $table->bigInteger('judge_id')->unsigned();
             $table->bigInteger('criteria_id')->unsigned();
-            $table->integer('score')->unsigned();
+            $table->integer('score')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-link" href="{{url('/')}}"><i class="fa fa-home"></i> Home</a>
-
+          <a class="nav-link" href="{{url('/judging')}}"><i class="fa fa-check"></i> Judging</a>
           @if(!auth()->guest())
             <a class="nav-link" href="{{url('/contests/create')}}"><i class="fa fa-plus"></i> Create</a>
             <a class="nav-link" href="{{url('/contests')}}"><i class="fa fa-users"></i> Contests</a>

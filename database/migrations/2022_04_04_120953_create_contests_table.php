@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('title');
             $table->string('schedule');
             $table->string('venue');
-            $table->string("event_code", 10);
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

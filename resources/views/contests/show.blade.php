@@ -6,25 +6,7 @@
 <hr>
 
 <div class="row d-flex align-items-stretch">
-    <div class="col-md-4 mb-3">
-        <div class="card h-100">
-            <div class="card-body bg-light shadow">
-                <div class="float-end">
-                    @include('contests._add-contestant')
-                </div>
-                <h3>Contestants</h3>
-                <hr>
-                <div class="list-group">
-                    @foreach($contest->contestants as $contestant)
-                    <a href="{{url('/contestants/' . $contestant->id)}}"
-                            class="list-group-item list-group-item-action">
-                        {{$contestant->number}}. {{$contestant->name}}
-                    </a>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="col-md-4 mb-3">
         <div class="card h-100">
             <div class="card-body bg-light shadow">
@@ -38,6 +20,7 @@
                         <tr class="bg-secondary text-light">
                             <th>Judge</th>
                             <th>Pass Code</th>
+                            <th>...</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +28,11 @@
                         <tr>
                             <td>{{$judge->name}}</td>
                             <td>{{$judge->passcode}}</td>
+                            <td class="text-center">
+                                <a href="{{url('/judges/' . $judge->id)}}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-folder-open"></i>
+                                </a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -52,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 mb-3">
+    <div class="col-md-8 mb-3">
         <div class="card h-100">
             <div class="card-body bg-light shadow">
                 <div class="float-end">
@@ -73,19 +61,66 @@
                         @foreach($contest->criterias as $criteria)
                         <?php $total+=$criteria->weight; ?>
                         <tr>
-                            <td>{{$criteria->name}}</td>
+                            <td>
+                                {{$criteria->name}}
+                                <div class="text-muted fst-italic ms-2">{{$criteria->description}}</div>
+                            </td>
                             <td class="text-center">{{$criteria->weight}}</td>
-                            <td>...</td>
+                            <td class="text-center">
+                                <a href="{{url('/criterias/' . $criteria->id)}}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-folder-open"></i>
+                                </a>
+                            </td>
                         </tr>
                         @endforeach
                         <tr>
                             <td class="fw-bold">TOTAL</td>
                             <td class="text-center fw-bold">{{$total}}</td>
+                            <td>&nbsp;</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="float-end">
+            @include('contests._add-contestant')
+        </div>
+        <h3>Contestants</h3>
+        <hr>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="bg-secondary text-light">
+                    <th rowspan="2">Name</th>
+                    @foreach($contest->judges as $judge)
+                    <th class="text-center" colspan="2">{{$judge->name}}</th>
+                    @endforeach
+                    <th class="text-center" rowspan="2">Sum of Ranks</th>
+                    <th class="text-center" rowspan="2">Final Rank</th>
+                    <tr class="bg-secondary text-light">
+                    @foreach($contest->judges as $judge)
+                        <th class="text-center">Score</th>
+                        <th class="text-center">Rank</th>
+                    @endforeach
+                    </tr>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($computation as $row)
+
+                <tr>
+                    @foreach($row as $rw)
+                        <td class="text-center">{{$rw}}</td>
+                    @endforeach
+                </tr>
+
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 
