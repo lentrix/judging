@@ -101,21 +101,28 @@
                     @endforeach
                     <th class="text-center" rowspan="2">Sum of Ranks</th>
                     <th class="text-center" rowspan="2">Final Rank</th>
+                    <th rowspan="2" class="text-center">...</th>
                     <tr class="bg-secondary text-light">
                     @foreach($contest->judges as $judge)
                         <th class="text-center">Score</th>
                         <th class="text-center">Rank</th>
                     @endforeach
+
                     </tr>
                 </tr>
             </thead>
             <tbody>
-                @foreach($computation as $row)
+                @foreach($computation as $id=>$row)
 
                 <tr>
                     @foreach($row as $rw)
                         <td class="text-center">{{$rw}}</td>
                     @endforeach
+                    <td class="text-center">
+                        <a href="{{url('/contestants/' . $id)}}" class="btn btn-sm btn-secondary">
+                            <i class="fa fa-folder-open"></i>
+                        </a>
+                    </td>
                 </tr>
 
                 @endforeach

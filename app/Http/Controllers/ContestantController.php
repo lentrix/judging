@@ -42,4 +42,16 @@ class ContestantController extends Controller
             'contestant' => $contestant
         ]);
     }
+
+    public function update(Contestant $contestant, Request $request) {
+        $request->validate([
+            'name' => 'string|required',
+            'remarks' => 'string|required',
+            'number' => 'numeric|required'
+        ]);
+
+        $contestant->update($request->only('name','number','remarks'));
+
+        return redirect('/contests/' . $contestant->contest_id)->with('Info','The contestant ' . $contestant->name . ' has been updated.');
+    }
 }
