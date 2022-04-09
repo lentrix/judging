@@ -41,6 +41,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/contestants/{contestant}',[ContestantController::class, 'show']);
 
     Route::get('/judges/{judge}', [JudgeController::class, 'show']);
+    Route::put('/judges/{judge}', [JudgeController::class, 'update']);
 
     Route::get('/criterias/{criteria}', [CriteriaController::class, 'show']);
 

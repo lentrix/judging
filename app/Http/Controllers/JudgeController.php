@@ -41,4 +41,15 @@ class JudgeController extends Controller
             'judge' => $judge
         ]);
     }
+
+    public function update(Judge $judge, Request $request) {
+        $request->validate([
+            'name' => 'string|required',
+            'passcode' => 'string|required',
+        ]);
+
+        $judge->update($request->only('name','passcode'));
+
+        return redirect('/contests/' . $judge->contest_id)->with('Info','The details of judge ' . $judge->name . ' has been updated.');
+    }
 }
