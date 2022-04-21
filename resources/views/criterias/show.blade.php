@@ -9,7 +9,7 @@ $judges = $criteria->contest->judges;
 @section('content')
 
 <div class="float-end mt-3">
-    <a href="{{url('/contests/' . $criteria->id)}}" class="btn btn-success">
+    <a href="{{url('/contests/' . $criteria->contest->id)}}" class="btn btn-success">
         <i class="fa fa-arrow-left"></i> Back to contest
     </a>
 </div>
