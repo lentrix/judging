@@ -33,7 +33,10 @@
     <tbody>
         @foreach($judge->contest->contestants as $contestant)
         <tr>
-            <td style="min-width: 30%">#{{$contestant->number}} - {{$contestant->name}}</td>
+            <td style="min-width: 30%">
+                #{{$contestant->number}} - {{$contestant->name}} <br>
+                {{$contestant->remarks}}
+            </td>
             {!! Form::hidden("judge_id", $judge->id) !!}
             @foreach($judge->contest->criterias as $criteria)
                 <?php $score = \App\Models\Score::get($judge->id, $criteria->id, $contestant->id); ?>

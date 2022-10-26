@@ -116,7 +116,7 @@
 
                 <tr>
                     @foreach($row as $rw)
-                        <td class="text-center">{{$rw}}</td>
+                        <td class="text-center">{!!$rw !!}</td>
                     @endforeach
                     <td class="text-center">
                         <a href="{{url('/contestants/' . $id)}}" class="btn btn-sm btn-secondary">

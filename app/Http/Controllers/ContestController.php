@@ -46,7 +46,7 @@ class ContestController extends Controller
 
         foreach($contest->contestants as $contestant) {
             $row = [];
-            $row[] = "#" . $contestant->number . " " . $contestant->name;
+            $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
             $sumOfRanks=0;
 
             foreach($contest->judges as $judge) {
