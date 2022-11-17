@@ -27,7 +27,7 @@
                         @foreach($contest->judges as $judge)
                         <tr>
                             <td>{{$judge->name}}</td>
-                            <td>{{$judge->passcode}}</td>
+                            <td><span style="text-transform: uppercase; font-family:'Times New Roman', Times, serif">{{$judge->passcode}}</span></td>
                             <td class="text-center">
                                 <a href="{{url('/judges/' . $judge->id)}}" class="btn btn-sm btn-secondary">
                                     <i class="fa fa-folder-open"></i>
