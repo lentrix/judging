@@ -43,7 +43,7 @@
                 <td>
                     {!! Form::number("score[$criteria->id][$contestant->id]",
                             $score->score,
-                            ['class'=>'form-control','max'=>$criteria->weight]) !!}
+                            ['class'=>'form-control','max'=>$criteria->weight,'min'=>0]) !!}
                 </td>
             @endforeach
                 <td class="text-center">{{\App\Models\Score::judgeTotal($judge->id, $contestant->id)}}</td>
